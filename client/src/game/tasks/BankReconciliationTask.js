@@ -1,6 +1,6 @@
 // BankReconciliationTask.js — Type D: Bank reconciliation with numeric input
 import TaskScene from '../scenes/TaskScene.js'
-import { generateBankRecDataset } from '../data/datasetEngine.js'
+import { generateBankReconciliationDataset as generateBankRecDataset } from '../data/datasetEngine.js'
 
 export default class BankReconciliationTask extends TaskScene {
   constructor() {

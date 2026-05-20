@@ -403,6 +403,51 @@ export function generateAuditFindingDataset(worldNumber, levelNumber) {
   }
 }
 
+const FRAUD_EVIDENCE_SCENARIOS = [
+  {
+    fraudType: 'ghost_employee',
+    evidence: [
+      { id: 1, label: 'Payslip', text: 'T. Okonkwo — $3,200/mo since Jan', type: 'document' },
+      { id: 2, label: 'HR Record', text: 'No HR file found for T. Okonkwo', type: 'record' },
+      { id: 3, label: 'Bank Account', text: 'Salary paid to account belonging to payroll manager', type: 'financial' },
+      { id: 4, label: 'Access Log', text: 'No building access for T. Okonkwo in 12 months', type: 'log' },
+      { id: 5, label: 'IT Account', text: 'No email or system account created', type: 'record' },
+      { id: 6, label: 'Org Chart', text: 'Role not listed in approved headcount', type: 'document' },
+      { id: 7, label: 'Supervisor', text: 'Manager claims employee works remotely, cannot confirm tasks', type: 'testimony' },
+      { id: 8, label: 'Contract', text: 'No signed employment contract on file', type: 'document' },
+    ],
+    correctConnections: [[1,2],[2,3],[3,4],[1,5],[2,6],[6,7],[1,8]],
+    fraudTypes: ['ghost_employee'],
+  },
+  {
+    fraudType: 'vendor_fraud',
+    evidence: [
+      { id: 1, label: 'Invoice #4471', text: 'Al-Fajr Trading — $18,500 consulting', type: 'document' },
+      { id: 2, label: 'Company Reg', text: 'Al-Fajr Trading registered 3 days before invoice', type: 'record' },
+      { id: 3, label: 'Director', text: 'Sole director: same address as procurement manager', type: 'record' },
+      { id: 4, label: 'Bank Transfer', text: 'Payment to personal account, not business account', type: 'financial' },
+      { id: 5, label: 'Contract', text: 'No signed contract or SOW for consulting services', type: 'document' },
+      { id: 6, label: 'Approval', text: 'Invoice approved by procurement manager, not CFO', type: 'log' },
+      { id: 7, label: 'Deliverable', text: 'No consulting report or output ever received', type: 'testimony' },
+      { id: 8, label: 'Prior Year', text: 'Same vendor paid $22,000 last year — also undocumented', type: 'financial' },
+    ],
+    correctConnections: [[1,2],[2,3],[3,4],[1,5],[5,6],[1,7],[1,8]],
+    fraudTypes: ['vendor_fraud'],
+  },
+]
+
+export function generateFraudEvidenceDataset(seed, fraudType) {
+  const scenario = fraudType
+    ? FRAUD_EVIDENCE_SCENARIOS.find((s) => s.fraudType === fraudType) || FRAUD_EVIDENCE_SCENARIOS[seed % FRAUD_EVIDENCE_SCENARIOS.length]
+    : FRAUD_EVIDENCE_SCENARIOS[seed % FRAUD_EVIDENCE_SCENARIOS.length]
+  return {
+    type: 'FraudInvestigation',
+    evidence: [...scenario.evidence].sort(() => Math.sin(seed) - 0.5),
+    correctConnections: scenario.correctConnections,
+    fraudTypes: scenario.fraudTypes,
+  }
+}
+
 export default {
   generateInvoiceMatchDataset,
   generateDuplicateInvoiceDataset,
@@ -410,4 +455,5 @@ export default {
   generateBankReconciliationDataset,
   generateCutOffDataset,
   generateAuditFindingDataset,
+  generateFraudEvidenceDataset,
 }

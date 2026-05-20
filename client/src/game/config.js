@@ -10,6 +10,15 @@ import VictoryScene from './scenes/VictoryScene.js'
 import GameOverScene from './scenes/GameOverScene.js'
 import LivesRefillScene from './scenes/LivesRefillScene.js'
 import RaceScene from './scenes/RaceScene.js'
+import InvoiceMatchTask from './tasks/InvoiceMatchTask.js'
+import FindDuplicatesTask from './tasks/FindDuplicatesTask.js'
+import BankReconciliationTask from './tasks/BankReconciliationTask.js'
+import MultipleChoiceTask from './tasks/MultipleChoiceTask.js'
+import DragDropTask from './tasks/DragDropTask.js'
+import AuditFindingTask from './tasks/AuditFindingTask.js'
+import CutOffTestTask from './tasks/CutOffTestTask.js'
+import FraudInvestigationTask from './tasks/FraudInvestigationTask.js'
+import FullAuditTask from './tasks/FullAuditTask.js'
 
 export default {
   type: Phaser.AUTO,
@@ -43,6 +52,15 @@ export default {
     GameOverScene,
     LivesRefillScene,
     RaceScene,
+    InvoiceMatchTask,
+    FindDuplicatesTask,
+    BankReconciliationTask,
+    MultipleChoiceTask,
+    DragDropTask,
+    AuditFindingTask,
+    CutOffTestTask,
+    FraudInvestigationTask,
+    FullAuditTask,
   ],
   parent: 'phaser-container',
 }
